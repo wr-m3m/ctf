@@ -59,13 +59,14 @@ print(encrypt(flag))
 ```
 The provided output.txt file contains the following (without comments):
 ```
-# test encrypted: 464851522838603926f4422a4ca6d81b02f351b454e6f968a324fcc77da30cf979eec57c8675de3bb92f6c21730607066226780a8d4539fcf67f9f5589d150a6c7867140b5a63de2971dc209f480c270882194f288167ed910b64cf627ea6392456fa1b648afd0b239b59652baedc595d4f87634cf7ec4262f8c9581d7f56dc6f836cfe696518ce434ef4616431d4d1b361c
+# test encrypted:
+464851522838603926f4422a4ca6d81b02f351b454e6f968a324fcc77da30cf979eec57c8675de3bb92f6c21730607066226780a8d4539fcf67f9f5589d150a6c7867140b5a63de2971dc209f480c270882194f288167ed910b64cf627ea6392456fa1b648afd0b239b59652baedc595d4f87634cf7ec4262f8c9581d7f56dc6f836cfe696518ce434ef4616431d4d1b361c
 
 # flag encrpted:
 4b6f25623a2d3b3833a8405557e7e83257d360a054c2ea
 ```
 ### SOLUTION
-Ok, so I know from my crypto classes that AES in CTR mode has to be implemented correctly. Where the counter gets initialized I don't see a random IV getting passed in the function.
+Ok, so I know that AES in CTR mode has to be implemented correctly. Where the counter gets initialized I don't see a random IV getting passed in the function.
 Maybe this is the vulnerability. If my theory is right, the keystream will be the same for both encrypted outputs (test, key) in output.txt. This mainly because it was encrypted in the same program run, because the key is the same. If this wasn't the case there would have been a key change and I wouldn't be able to crack it.
 ```
             CTR + IV                    CTR + (IV+1)
@@ -102,7 +103,7 @@ Plaintext --> (xor)      (xor) <-- Plaintext
 
 **KEY xor FlagCiphertext = FlagPlaintext**
 
-I wasn't able to code the "encrypter", but after checking writeups I saw that I was right and almost hat the Flag.
+I wasn't able to code the "encrypter", but after checking writeups I saw that I was right and almost hat the flag.
 
 ## Final thoughts
-Encoding is tricky sometimes. I can use the python CTF toolkit [pwntools](https://github.com/Gallopsled/pwntools) to xor. I will use this tool in the future.
+Encoding is tricky sometimes. I can use the python CTF toolkit [pwntools](https://github.com/Gallopsled/pwntools) to xor.
